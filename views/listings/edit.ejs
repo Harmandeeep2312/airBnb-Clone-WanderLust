@@ -1,0 +1,46 @@
+<% layout("layouts/boilerplate") %>
+<body>
+    <br><br>
+    <div class="row">
+    <div class="col-8 offset-2">
+    <h3>Edit Your Details</h3>
+    <form method="post" action="/listings/<%=List._id%>?_method=PUT" novalidate class="needs-validation" enctype="multipart/form-data">
+         <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+         <input type="text" value="<%=List.title%>" name="title" class="form-control" required>
+         <div class="invalid-feedback">Title should be valid</div>
+         </div>
+        <div class="mb-3">
+        <label class="form-label" for="Description">Description</label>
+        <textarea name="description" class="form-control" required><%=List.description%></textarea>
+        <div class="valid-feedback">Description should be valid</div>
+        </div>
+         <div class="mb-3">
+        <img src = "<%=originalurl%>" />
+        </div>
+
+        <div class="mb-3">
+        <label class="form-label" for="Image-Url">Image-Url</label>
+        <input name="image" type="file" class="form-control" required></div>
+        <div class="row">
+        <div class="mb-3 col-md-4">
+        <label class="form-label" for="Price">Price</label>
+        <input  value="<%=List.price%>" name="price" class="form-control" required>
+            <div class="invalid-feedback">Price should be valid</div>
+        </div>
+        <div class="mb-3 col-md-8">
+        <label class="form-label" for="country">Country</label>
+        <input type="text" value="<%=List.country%>"  name="country" class="form-control" required>
+            <div class="invalid-feedback">Country name should be valid</div>
+        </div></div>
+        <div class="mb-3">
+        <label class="form-label" for="location">Location</label>
+        <input type="text" value="<%=List.location%>" name="location" class="form-control" required>
+        <div class="invalid-feedback">Location should be valid</div>
+        </div>
+        <button class="btn btn-dark add-btn">Edit</button>
+    </div>
+    </div>
+    </form>
+    <br><br>
+</body>
