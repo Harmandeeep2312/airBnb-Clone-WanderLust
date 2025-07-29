@@ -73,9 +73,13 @@ app.use((req,res,next)=>{
     res.locals.currUser = req.user;
     next();
 })
+
 app.use("/listings", listtings);
 app.use("/listings/:id/reviews",revview);
 app.use("/",userRouter);
+app.get("/", (req, res) => {
+    res.render("home");
+});
 
 app.use((err,req,res,next)=>{
     let {status=500,message="something went wrong"}= err;
