@@ -21,6 +21,9 @@ module.exports.show = catchAsync(async(req,res)=>{
     return res.render("listings/show.ejs",{list});
 })
 module.exports.postList = catchAsync(async (req, res) => {
+    console.log("Map Token:", process.env.MAP_TOKEN ? "Present" : "Missing");
+console.log("Cloudinary Storage Config:", storage);
+console.log("Uploaded File:", req.file);
        console.log("Uploaded File:", req.file);
     const response = await geocodingClient.forwardGeocode({
         query: req.body.listing.location,
