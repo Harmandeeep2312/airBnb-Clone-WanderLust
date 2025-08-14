@@ -83,7 +83,8 @@ app.get("/", (req, res) => {
 
 app.use((err,req,res,next)=>{
     let {status=500,message="something went wrong"}= err;
-    console.log(message);
+    console.error("Error details:", err);
+
     res.status(status).render("error.ejs", {err});
     // res.status(status).send(message);
 })
