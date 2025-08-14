@@ -2,14 +2,15 @@ const Listing = require("../models/listing");
 const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
 const mapToken = process.env.MAP_TOKEN;
 const geocodingClient = mbxGeocoding({accessToken: mapToken});
-module.exports.index = async(req,res)=>{
+const catchAsync = require("../utils/catchAsync");
+module.exports.index = catchAsync(async(req,res)=>{
     let list = await Listing.find({})
     res.render("listings/listingss.ejs",{list});
-} 
-module.exports.new = async(req,res)=>{
+}) 
+module.exports.new = catchAsync(async(req,res)=>{
     res.render("listings/new.ejs")
-}
-module.exports.show = async(req,res)=>{
+})
+module.exports.show = catchAsync(async(req,res)=>{
     let {id} = req.params;
     const list = await Listing.findById(id).populate({path: "reviews", populate: {
         path:"author"}}).populate("owner");
@@ -18,8 +19,8 @@ module.exports.show = async(req,res)=>{
         res.redirect("/listings");
     }
     res.render("listings/show.ejs",{list});
-}
-module.exports.postList = async(req,res)=>{
+})
+module.exports.postList = catchAsync(async(req,res)=>{
     let response = await  geocodingClient.forwardGeocode({
         query: req.body.listing.location,
         limit: 1,
@@ -34,8 +35,8 @@ module.exports.postList = async(req,res)=>{
      await newlist.save();
      req.flash("success","New Listing Created");
      res.redirect("/listings");
-}
-module.exports.update = async (req,res)=>{
+})
+module.exports.update = catchAsync(async (req,res)=>{
     let {id} = req.params;
     let List = await Listing.findById(id);
      if(!List){
@@ -44,8 +45,8 @@ module.exports.update = async (req,res)=>{
     }
     let originalurl= List.image.url.replace("/upload", "/upload/h_300,w_250");
     res.render("listings/edit.ejs",{List, originalurl});
-}
-module.exports.putUpdate = async(req,res)=>{
+})
+module.exports.putUpdate = catchAsync(async(req,res)=>{
      let {id} = req.params;
      if (typeof req.body.image === 'string') {
         req.body.image = {
@@ -63,10 +64,10 @@ module.exports.putUpdate = async(req,res)=>{
     }
     req.flash("success","Listing Updated");
     res.redirect("/listings")
-}
-module.exports.delete = async(req,res)=>{
+})
+module.exports.delete = catchAsync(async(req,res)=>{
     let {id}=req.params;
     await Listing.findByIdAndDelete(id);
     req.flash("success","Listing Deleted");
     res.redirect("/listings");
-} 
+}) 
