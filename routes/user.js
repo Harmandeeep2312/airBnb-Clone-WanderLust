@@ -21,11 +21,11 @@ router.route("/login")
 
 //login
 
-router.get("/login",wrapAsync(userController.renderLogin));
+router.get("/login",userController.renderLogin);
 
-router.post("/login", saveRedirectUrl, passport.authenticate("local" , {failureRedirect: "/login",failureFlash: true}), wrapAsync(userController.login))
+router.post("/login", saveRedirectUrl, passport.authenticate("local" , {failureRedirect: "/login",failureFlash: true}),userController.login)
 
 //logout
 
-router.get("/logout" , wrapAsync(userController.logout));
+router.get("/logout" ,userController.logout);
 module.exports = router;
