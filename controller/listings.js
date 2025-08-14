@@ -16,7 +16,7 @@ module.exports.show = catchAsync(async(req,res)=>{
         path:"author"}}).populate("owner");
     if(!list){
         req.flash("error","Listing u r trying to access is not available");
-        res.redirect("/listings");
+        return res.redirect("/listings");
     }
     res.render("listings/show.ejs",{list});
 })
@@ -41,7 +41,7 @@ module.exports.update = catchAsync(async (req,res)=>{
     let List = await Listing.findById(id);
      if(!List){
         req.flash("error","Listing u r trying to access is not available");
-        res.redirect("/listings");
+        return res.redirect("/listings");
     }
     let originalurl= List.image.url.replace("/upload", "/upload/h_300,w_250");
     res.render("listings/edit.ejs",{List, originalurl});
