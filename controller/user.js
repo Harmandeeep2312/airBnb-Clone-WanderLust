@@ -2,7 +2,7 @@ const User = require("../models/user.js");
 const Listing = require("../models/listing");
 
 module.exports.renderUser = async(req,res)=>{
-    res.render("users/signup.ejs");
+    return res.render("users/signup.ejs");
 }
 module.exports.postUser = async(req,res)=>{
     try{
@@ -18,18 +18,18 @@ module.exports.postUser = async(req,res)=>{
    });
     }catch(err){
         req.flash("error",err.message);
-        res.redirect("/signup")
+        return res.redirect("/signup")
     }
 };
 module.exports.renderLogin = (req,res)=>{
-    res.render("users/login.ejs");
+    return res.render("users/login.ejs");
 };
 module.exports.login = (req,res)=>{
     req.flash("success","Welcome To WanderLust");
     let redirectUrl = req.session.returnTo || "/listings"
     console.log(redirectUrl)
     delete req.session.returnTo;
-    res.redirect(redirectUrl);
+    return res.redirect(redirectUrl);
 }
 module.exports.logout = (req,res)=>{
     req.logout((err)=>{
@@ -37,6 +37,6 @@ module.exports.logout = (req,res)=>{
         return next(err);
         }
         req.flash("success","Logged you Out");
-        res.redirect("/listings");
+        return res.redirect("/listings");
     });
 }

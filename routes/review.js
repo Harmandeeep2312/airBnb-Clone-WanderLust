@@ -1,5 +1,5 @@
 const express = require("express");
-const wrapAsync = require("../utils/error.js");
+const wrapAsync = require("../utils/catchAsync.js");
 const {listingSchema , reviewSchema} = require("../schema.js");
 const ExpressError = require("../utils/ExpressError.js");
 const methodoverride = require("method-override");
