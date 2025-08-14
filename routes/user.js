@@ -14,18 +14,18 @@ router.route("/signup")
 
 router.route("/login")
 .get(userController.renderLogin)
-.post( saveRedirectUrl, passport.authenticate("local" , {failureRedirect: "/login",failureFlash: true}), userController.login)
+.post( saveRedirectUrl, passport.authenticate("local" , {failureRedirect: "/login",failureFlash: true}), wrapAsync(userController.login))
 
 // router.get("/signup" , userController.renderUser )
 // router.post("/signup", wrapAsync(userController.postUser))
 
 //login
 
-router.get("/login",userController.renderLogin);
+router.get("/login",wrapAsync(userController.renderLogin));
 
-router.post("/login", saveRedirectUrl, passport.authenticate("local" , {failureRedirect: "/login",failureFlash: true}), userController.login)
+router.post("/login", saveRedirectUrl, passport.authenticate("local" , {failureRedirect: "/login",failureFlash: true}), wrapAsync(userController.login))
 
 //logout
 
-router.get("/logout" , userController.logout);
+router.get("/logout" , wrapAsync(userController.logout));
 module.exports = router;
