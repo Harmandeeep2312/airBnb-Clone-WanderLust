@@ -21,6 +21,7 @@ module.exports.show = catchAsync(async(req,res)=>{
     return res.render("listings/show.ejs",{list});
 })
 module.exports.postList = catchAsync(async (req, res) => {
+       console.log("Uploaded File:", req.file);
     const response = await geocodingClient.forwardGeocode({
         query: req.body.listing.location,
         limit: 1
@@ -46,7 +47,6 @@ module.exports.postList = catchAsync(async (req, res) => {
     newlist.geometry = response.body.features[0].geometry;
 
     await newlist.save();
-    console.log("Uploaded File:", req.file);
     req.flash("success", "New Listing Created");
     return res.redirect("/listings");
 });
