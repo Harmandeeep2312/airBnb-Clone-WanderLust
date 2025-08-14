@@ -20,22 +20,36 @@ module.exports.show = catchAsync(async(req,res)=>{
     }
     return res.render("listings/show.ejs",{list});
 })
-module.exports.postList = catchAsync(async(req,res)=>{
-    let response = await  geocodingClient.forwardGeocode({
+module.exports.postList = catchAsync(async (req, res) => {
+    const response = await geocodingClient.forwardGeocode({
         query: req.body.listing.location,
-        limit: 1,
-    })
-    .send()
-    let url = req.file.path;
-    let filename = req.file.filename;
-     const newlist= new Listing(req.body.listing)
-     newlist.owner = req.user._id; // gives user id 
-     newlist.image= {url, filename}
-     newlist.geometry = response.body.features[0].geometry; 
-     await newlist.save();
-     req.flash("success","New Listing Created");
-     return res.redirect("/listings");
-})
+        limit: 1
+    }).send();
+
+    // ✅ Check for location result
+    if (!response.body.features.length) {
+        req.flash("error", "Location not found. Please enter a valid location.");
+        return res.redirect("/listings/new");
+    }
+
+    // ✅ Check for image upload
+    if (!req.file) {
+        req.flash("error", "Image upload failed. Please upload an image.");
+        return res.redirect("/listings/new");
+    }
+
+    const url = req.file.path;
+    const filename = req.file.filename;
+    const newlist = new Listing(req.body.listing);
+    newlist.owner = req.user._id;
+    newlist.image = { url, filename };
+    newlist.geometry = response.body.features[0].geometry;
+
+    await newlist.save();
+    console.log("Uploaded File:", req.file);
+    req.flash("success", "New Listing Created");
+    return res.redirect("/listings");
+});
 module.exports.update = catchAsync(async (req,res)=>{
     let {id} = req.params;
     let List = await Listing.findById(id);
