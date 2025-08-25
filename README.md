@@ -1,8 +1,8 @@
-🏡 WanderLust – Full-Stack Rental Web Application
+# 🏡WanderLust – Full-Stack Rental Web Application
 
 A full-stack stay rental platform inspired by Airbnb, built with Node.js, Express, MongoDB, EJS, and Bootstrap 5. The application enables users to sign up, log in, create listings, upload images, and explore properties with map integration.
 
-✨ Features
+# ✨ Features
 
 ✅ User Authentication & Authorization – Secure login and signup using session-based auth.
 ✅ Add, Edit, Delete Listings – Authenticated users can manage their rental properties.
@@ -12,7 +12,7 @@ A full-stack stay rental platform inspired by Airbnb, built with Node.js, Expres
 ✅ RESTful API Architecture – Organized routes and controllers for scalability.
 ✅ Deployed on Render – Ready-to-use live version of the app.
 
-🛠 Tech Stack
+## 🛠 Tech Stack
 
 Frontend: EJS (Embedded JavaScript), Bootstrap 5
 
@@ -30,7 +30,8 @@ Deployment: Render
 
 Version Control: Git, GitHub
 
-📂 Project Structure
+## 📂 Project Structure
+``` bash
 airbnb-clone/
 │── public/           # Static assets (CSS, JS, images)
 │── views/            # EJS templates
@@ -40,8 +41,10 @@ airbnb-clone/
 │── middleware/       # Custom middleware
 │── app.js            # Main application file
 │── package.json
+```
 
-🚀 Getting Started
+
+## 🚀 Getting Started
 1. Clone the Repository
 git clone https://github.com/your-username/stayease.git
 cd stayease
