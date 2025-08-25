@@ -46,7 +46,7 @@ airbnb-clone/
 
 ## 🚀 Getting Started
 1. Clone the Repository
-git clone https://github.com/your-username/stayease.git
+git clone https://github.com/Harmandeeep2312/stayease.git
 cd stayease
 
 2. Install Dependencies
